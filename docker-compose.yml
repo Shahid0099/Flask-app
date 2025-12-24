@@ -6,7 +6,7 @@ services:
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_DATABASE: "devops"
+      MYSQL_DATABASE: "flaskdb"
     ports:
       - "3306:3306"
 
@@ -37,7 +37,7 @@ services:
       - MYSQL_HOST=mysql
       - MYSQL_USER=root
       - MYSQL_PASSWORD=root
-      - MYSQL_DB=devops
+      - MYSQL_DB=flaskdb
 
     networks:
       - two-tier-nt
