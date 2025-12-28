@@ -26,7 +26,8 @@ services:
 
 
   flask-app:
-    container_name: two-tier-app
+    container_name: flask-app
+    image: shadow493/flask-app:latest
     build:
       context: .
 
