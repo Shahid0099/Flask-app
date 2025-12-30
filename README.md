@@ -243,24 +243,48 @@ This file contains the pipeline-as-code definition for Jenkins.
 ```groovy
 pipeline {
     agent any
+
     stages {
-        stage('Clone Code') {
+        stage ('cleaning workspace') {
             steps {
-                // Replace with your GitHub repository URL
-                git branch: 'main', url: '[https://github.com/your-username/your-repo.git](https://github.com/your-username/your-repo.git)'
+                cleanWs()
             }
         }
-        stage('Build Docker Image') {
+        stage('Cloning The Code') {
             steps {
-                sh 'docker build -t flask-app:latest .'
+                echo 'Cloning code from GitHub'
+                git branch: 'main', url: 'https://github.com/Shahid0099/Flask-app.git'
             }
         }
-        stage('Deploy with Docker Compose') {
+        stage('build') {
             steps {
-                // Stop existing containers if they are running
-                sh 'docker compose down || true'
-                // Start the application, rebuilding the flask image
+                echo 'Buildind code'
+                sh "docker build -t shadow493/flask-app:latest ."
+            }
+        }
+        stage('Push to DockerHub') {
+            steps {
+                echo 'Pushing Image to Hub'
+                withDockerRegistry(credentialsId: 'dock-cred', url: 'https://index.docker.io/v1/') {
+                sh 'docker tag flask-app shadow493/flask-app:latest'
+                sh 'docker login'    
+                sh 'docker push shadow493/flask-app:latest'
+                }
+            }
+        }
+        stage('Delpoy App') {
+            steps {
+                echo 'Deploying With Docker Compose'
+                sh 'docker compose down --remove-orphans || true'
                 sh 'docker compose up -d --build'
+            }
+        }
+        stage('Cleanup') {
+            steps {
+                sh '''
+                docker container prune -f
+                docker image prune -f
+                '''
             }
         }
     }
