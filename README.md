@@ -75,7 +75,7 @@ This document outlines the step-by-step process for deploying a 2-tier web appli
         * **Type:** Custom TCP, **Protocol:** TCP, **Port:** 5000 (for Flask), **Source:** Anywhere (0.0.0.0/0)
         * **Type:** Custom TCP, **Protocol:** TCP, **Port:** 8080 (for Jenkins), **Source:** Anywhere (0.0.0.0/0)
 
-<img src="diagrams/02.png"> 
+<img src="diagrams/Screenshot02.png"> 
 
 3.  **Connect to EC2 Instance:**
     * Use SSH to connect to the instance's public IP address.
