@@ -145,7 +145,7 @@ This document outlines the step-by-step process for deploying a 2-tier web appli
     sudo usermod -aG docker jenkins
     sudo systemctl restart jenkins
     ```
-<img src="diagrams/03.png">
+<img src="diagrams/Screenshot03.png">
 
 ---
 
